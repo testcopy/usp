@@ -1,0 +1,77 @@
+#include<sys/stat.h>
+
+#include<sys/types.h>
+
+#include<fcntl.h>
+
+#include<unistd.h>
+
+#include<stdio.h>
+
+#include<stdlib.h>
+
+#include<string.h>
+
+#define maxline 2000
+
+int main()
+
+{
+
+int n;
+
+char int1[maxline],int2[maxline];
+
+char line[maxline];
+
+char *str;
+
+while((n=read(STDIN_FILENO, line,maxline))>0)
+
+{
+
+line[n]=0;
+
+if(sscanf(line,"%s%s",int1,int2)==2)
+
+{
+
+str=strcat(int1,int2);
+
+sprintf(line,"%s\n",str);
+
+n=strlen(line);
+
+if(write(STDOUT_FILENO,line,n)!=n)
+
+printf("write error");
+
+}
+
+else
+
+{
+
+if(write(STDOUT_FILENO,"invalid arg\n",13)!=13)
+
+printf("write error");
+
+}}
+
+exit(0);
+
+}
+
+O/P
+
+gcc concat.c
+
+$ ./a.out
+
+hi hello
+
+hihello
+
+ms rit
+
+msrit
