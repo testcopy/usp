@@ -1,0 +1,79 @@
+inter.c
+
+#include<sys/stat.h>
+
+#include<sys/types.h>
+
+#include<fcntl.h>
+
+#include<unistd.h>
+
+#include<stdio.h>
+
+int main()
+
+{
+
+pid_t pid;
+
+if((pid=fork())<0)
+
+printf("error");
+
+else if(pid==0)
+
+if(execl("textinterpreter","test","myarg1","myarg2","myarg4",(char *)0)<0)
+
+printf("error1");
+
+if(waitpid(pid,NULL,0)<0)
+
+printf("wait eror");
+
+system("ls> list");
+
+return 0;
+
+}
+
+text interpreter
+
+#! /home/guest1/echoarg my2
+
+echoarg.c
+
+#include<sys/stat.h>
+
+#include<sys/types.h>
+
+#include<fcntl.h>
+
+#include<unistd.h>
+
+#include<stdio.h>
+
+main(int argc,char *argv[])
+
+{
+
+int i;
+
+for(i=0;i<argc;i++)
+
+{
+
+printf("argv[%d]=%s",i,argv[i]);
+
+}
+
+}
+
+output
+
+cc echoarg.c ­o echoarg
+
+chmod 777 textinterpreter
+
+gcc inter.c
+
+./a.out
